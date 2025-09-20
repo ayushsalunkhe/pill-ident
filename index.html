@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediScan - AI Medicine Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+        // Ensure Lucide is loaded before initializing
+        window.addEventListener('load', function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        });
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Header -->
+    <header class="bg-white/10 backdrop-blur-lg border-b border-white/20">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white/20 p-2 rounded-lg">
+                        <i data-lucide="pill" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <h1 class="text-2xl font-bold text-white">MediScan</h1>
+                </div>
+                <p class="text-white/80 text-sm">AI-Powered Medicine Analysis</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <!-- Hero Section -->
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-4xl font-bold text-white mb-4">
+                Analyze Medicine Packages
+            </h2>
+            <p class="text-white/80 text-lg max-w-2xl mx-auto">
+                Upload a photo of any medicine package and get detailed information from FDA database or AI analysis
+            </p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 card-shadow mb-8 fade-in">
+            <div id="upload-area" class="border-2 border-dashed border-white/30 rounded-xl p-12 text-center cursor-pointer hover:border-white/50 transition-colors">
+                <div id="upload-content">
+                    <i data-lucide="upload" class="w-16 h-16 text-white/60 mx-auto mb-4"></i>
+                    <h3 class="text-xl font-semibold text-white mb-2">
+                        Drop your medicine image here
+                    </h3>
+                    <p class="text-white/60">
+                        or click to browse files (JPG, PNG, WebP)
+                    </p>
+                </div>
+                <div id="preview-content" class="hidden">
+                    <img id="preview-image" class="max-w-xs max-h-48 mx-auto rounded-lg shadow-lg object-contain bg-white/80 p-2 mb-4">
+                    <p id="file-name" class="text-white/80 text-sm mb-4"></p>
+                    <div class="space-x-3">
+                        <button id="change-image-btn" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                            <i data-lucide="upload" class="w-4 h-4 inline mr-2"></i>
+                            Change Image
+                        </button>
+                        <button id="analyze-btn" class="bg-white/20 hover:bg-white/30 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            <i data-lucide="search" class="w-4 h-4 inline mr-2"></i>
+                            Analyze Medicine
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <input type="file" id="file-input" accept="image/*" class="hidden">
+        </div>
+
+        <!-- Progress Section -->
+        <div id="progress-section" class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 card-shadow mb-8 hidden">
+            <h3 class="text-lg font-semibold text-white mb-4 flex items-center">
+                <i data-lucide="loader" class="w-5 h-5 mr-2 animate-spin"></i>
+                Analysis Progress
+            </h3>
+            <div id="progress-steps" class="space-y-3">
+                <!-- Progress steps will be added here -->
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 card-shadow hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold text-white">Medicine Information</h3>
+                <span id="source-badge" class="px-3 py-1 rounded-full text-sm font-medium"></span>
+            </div>
+            <div id="medicine-info" class="grid md:grid-cols-2 gap-6 text-white">
+                <!-- Medicine information will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Error Section -->
+        <div id="error-section" class="bg-red-500/20 backdrop-blur-lg rounded-2xl p-6 card-shadow hidden">
+            <div class="flex items-center space-x-3">
+                <i data-lucide="alert-circle" class="w-6 h-6 text-red-300"></i>
+                <div>
+                    <h3 class="font-semibold text-red-200">Analysis Failed</h3>
+                    <p id="error-message" class="text-red-300/80"></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/5 backdrop-blur-lg border-t border-white/10 mt-16">
+        <div class="max-w-6xl mx-auto px-4 py-8 text-center">
+            <p class="text-white/60">
+                Powered by Google Gemini AI, FDA Database, and OpenRouter
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
