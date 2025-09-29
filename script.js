@@ -157,7 +157,7 @@ class MediScan {
     async extractWithGemini() {
         const base64Image = await this.fileToBase64(this.selectedFile);
         
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${this.geminiApiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${this.geminiApiKey}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -581,3 +581,4 @@ Focus on providing accurate, helpful information especially for medicines that m
 document.addEventListener('DOMContentLoaded', () => {
     new MediScan();
 });
+
