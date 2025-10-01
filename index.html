@@ -49,6 +49,24 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
+
+        /* Google Translate Button Styles */
+        #google_translate_element {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: #ffffff;
+            border-radius: 50%;
+            padding: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #google_translate_element:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="min-h-screen gradient-bg">
@@ -67,8 +85,8 @@
         </div>
     </header>
 
-    <!-- Google Translate Dropdown -->
-    <div id="google_translate_element" class="absolute top-4 right-4 z-50"></div>
+    <!-- Google Translate Dropdown (Positioned as a button) -->
+    <div id="google_translate_element"></div>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-12">
