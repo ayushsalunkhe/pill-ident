@@ -42,55 +42,12 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Google Translate Button Styles */
-        #google_translate_element {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background-color: #ffffff;
-            border-radius: 50%;
-            padding: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .pulse-dot {
+            animation: pulse 2s infinite;
         }
-
-        #google_translate_element:hover {
-            transform: scale(1.1);
-        }
-
-        .translate-dropdown {
-            background: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-            position: absolute;
-            top: 40px;
-            right: 10px;
-            z-index: 999;
-            width: 200px;
-            display: none;
-            transition: all 0.3s ease;
-        }
-
-        .translate-dropdown.visible {
-            display: block;
-        }
-
-        .translate-dropdown select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: #f9f9f9;
-            font-size: 14px;
-            color: #333;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
     </style>
 </head>
@@ -110,42 +67,8 @@
         </div>
     </header>
 
-    <!-- Google Translate Dropdown (Positioned as a button) -->
-    <div id="google_translate_element" onclick="toggleDropdown()">
-        <span class="text-white text-lg">🌐</span> <!-- Custom icon for Google Translate -->
-    </div>
-
-    <div id="translate-dropdown" class="translate-dropdown">
-        <select onchange="changeLanguage(this)">
-            <option value="en">English</option>
-            <option value="es">Spanish</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
-            <option value="it">Italian</option>
-            <option value="pt">Portuguese</option>
-            <option value="zh-CN">Chinese</option>
-            <option value="ja">Japanese</option>
-        </select>
-    </div>
-
-    <script>
-        // Toggle the visibility of the dropdown
-        function toggleDropdown() {
-            const dropdown = document.getElementById('translate-dropdown');
-            dropdown.classList.toggle('visible');
-        }
-
-        // Change the language in the dropdown
-        function changeLanguage(select) {
-            const lang = select.value;
-            const translateElement = new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,es,fr,de,it,pt,zh-CN,ja',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
-            translateElement.translatePage(lang);
-        }
-    </script>
+    <!-- Google Translate Dropdown -->
+    <div id="google_translate_element" class="absolute top-4 right-4 z-50"></div>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-12">
@@ -235,4 +158,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
