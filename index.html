@@ -67,6 +67,25 @@
         #google_translate_element:hover {
             transform: scale(1.1);
         }
+
+        /* Button inside the page */
+        .translate-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            padding: 12px;
+            background-color: #4285f4;
+            color: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .translate-button:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="min-h-screen gradient-bg">
@@ -87,6 +106,11 @@
 
     <!-- Google Translate Dropdown (Positioned as a button) -->
     <div id="google_translate_element"></div>
+
+    <!-- Translate Button (Custom floating button) -->
+    <div id="translate-button" class="translate-button">
+        🌐
+    </div>
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-12">
